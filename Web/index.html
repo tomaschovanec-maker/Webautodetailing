@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zrcadlo Detailing – péče o lak, interiér a keramická ochrana</title>
+  <meta name="description" content="Autodetailing: leštění laku, keramická ochrana, čištění interiéru a ruční mytí. Ceník a objednání online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="logo" href="#uvod">Zrcadlo<span>Detailing</span></a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Otevřít menu">Menu</button>
+  <nav id="nav" class="nav">
+    <a href="#sluzby">Služby</a>
+    <a href="#cenik">Ceník</a>
+    <a href="#o-nas">O nás</a>
+    <a href="#kontakt" class="btn btn-small">Objednat se</a>
+  </nav>
+</header>
+
+<main>
+  <section id="uvod" class="hero">
+    <div class="hero-text">
+      <h1>Lak, který se zase zrcadlí.</h1>
+      <p>Odstraníme jemné škrábance, hologramy a stárnutí laku. Potom ho zapečetíme keramikou, aby voda po voze stékala a špína se držela hůř.</p>
+      <div class="hero-actions">
+        <a href="#kontakt" class="btn">Objednat termín</a>
+        <a href="#cenik" class="btn btn-ghost">Zobrazit ceník</a>
+      </div>
+    </div>
+
+    <figure class="compare" id="compare" style="--pos:50%">
+      <div class="paint paint-after" aria-hidden="true"></div>
+      <div class="paint paint-before" aria-hidden="true"></div>
+      <span class="tag tag-before">Před</span>
+      <span class="tag tag-after">Po</span>
+      <div class="handle" aria-hidden="true"></div>
+      <input type="range" min="0" max="100" value="50" aria-label="Porovnání laku před a po leštění">
+      <figcaption>Posuňte jezdec: matný lak s jemnými škrábanci a stejný lak po korekci.</figcaption>
+    </figure>
+  </section>
+
+  <section id="sluzby" class="section light">
+    <div class="wrap">
+      <h2>Co pro váš vůz děláme</h2>
+      <ul class="services">
+        <li>
+          <h3>Ruční mytí a dekontaminace</h3>
+          <p>Bezpečné mytí dvěma kbelíky, odstranění letní rzi a asfaltu, jílování laku. Základ pro každou další práci.</p>
+          <span class="meta">2–3 hodiny</span>
+        </li>
+        <li>
+          <h3>Leštění a korekce laku</h3>
+          <p>Strojní leštění odstraní většinu jemných škrábanců a hologramů. Kontrolujeme tloušťku laku, abychom ho zbytečně nebrousili.</p>
+          <span class="meta">1–3 dny</span>
+        </li>
+        <li>
+          <h3>Keramická ochrana</h3>
+          <p>Nanokeramický povlak s tvrdou vrstvou, která zvyšuje lesk, odpuzuje vodu a usnadňuje mytí. Ochrana až na 5 let.</p>
+          <span class="meta">2–4 dny</span>
+        </li>
+        <li>
+          <h3>Čištění interiéru</h3>
+          <p>Hloubkové čištění čalounění, extrakce skvrn, ošetření kůže a plastů, čištění stropu a odstranění pachů ozonem.</p>
+          <span class="meta">4–6 hodin</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="cenik" class="section dark">
+    <div class="wrap">
+      <h2>Ceník</h2>
+      <p class="lead">Ceny jsou včetně DPH. Konečnou cenu určuje stav vozu, proto ji potvrdíme po krátké prohlídce.</p>
+
+      <div class="sizes" role="tablist" aria-label="Velikost vozu">
+        <button role="tab" aria-selected="false" data-size="s">Malý vůz <small>hatchback</small></button>
+        <button role="tab" aria-selected="true" data-size="m">Střední <small>sedan, kombi</small></button>
+        <button role="tab" aria-selected="false" data-size="l">Velký <small>SUV, van</small></button>
+      </div>
+
+      <table class="prices">
+        <thead><tr><th>Služba</th><th>Cena od</th></tr></thead>
+        <tbody>
+          <tr data-s="990" data-m="1290" data-l="1590"><td>Ruční mytí a dekontaminace</td><td class="price"></td></tr>
+          <tr data-s="1490" data-m="1890" data-l="2290"><td>Čištění interiéru</td><td class="price"></td></tr>
+          <tr data-s="3900" data-m="4900" data-l="5900"><td>Jednokrokové leštění a vosk</td><td class="price"></td></tr>
+          <tr data-s="5490" data-m="6490" data-l="7490"><td>Kompletní péče (exteriér + interiér)</td><td class="price"></td></tr>
+          <tr data-s="9900" data-m="12900" data-l="15900"><td>Korekce laku a keramická ochrana</td><td class="price"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="o-nas" class="section light">
+    <div class="wrap about">
+      <div>
+        <h2>Malá dílna, velká trpělivost</h2>
+        <p>Zrcadlo Detailing vzniklo z lásky k autům a z nechuti k rychlým zkratkám. Pracujeme v uzavřené vytápěné hale a na každém voze pouze jeden člověk od převzetí až po předání.</p>
+        <p>Používáme prověřenou profesionální chemii a měříme tloušťku laku. Pokud něco nemá smysl, řekneme vám to a ušetříme vám peníze.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>9 let</dt><dd>praxe v detailingu</dd></div>
+        <div><dt>1 200+</dt><dd>opravených a ošetřených vozů</dd></div>
+        <div><dt>5 let</dt><dd>záruka na keramickou ochranu</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="kontakt" class="section dark">
+    <div class="wrap contact">
+      <div>
+        <h2>Domluvte si termín</h2>
+        <p class="lead">Napište nebo zavolejte. Ozveme se do jednoho pracovního dne.</p>
+        <address>
+          <p><strong>Telefon</strong><br><a href="tel:+420123456789">+420 123 456 789</a></p>
+          <p><strong>E-mail</strong><br><a href="mailto:info@zrcadlo-detailing.cz">info@zrcadlo-detailing.cz</a></p>
+          <p><strong>Adresa</strong><br>Ulice 123, 123 45 Město</p>
+          <p><strong>Otevřeno</strong><br>Po–Pá 8:00–17:00<br>So 9:00–13:00 po domluvě</p>
+        </address>
+      </div>
+
+      <form id="form" novalidate>
+        <label>Jméno
+          <input type="text" name="jmeno" autocomplete="name" required>
+        </label>
+        <label>Telefon nebo e-mail
+          <input type="text" name="kontakt" autocomplete="tel" required>
+        </label>
+        <label>Služba
+          <select name="sluzba">
+            <option>Ruční mytí a dekontaminace</option>
+            <option>Čištění interiéru</option>
+            <option>Leštění laku</option>
+            <option>Keramická ochrana</option>
+            <option>Nevím, poraďte mi</option>
+          </select>
+        </label>
+        <label>Zpráva
+          <textarea name="zprava" rows="4" placeholder="Značka a model vozu, co vás trápí"></textarea>
+        </label>
+        <button type="submit" class="btn">Odeslat poptávku</button>
+        <p class="form-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>© <span id="year"></span> Zrcadlo Detailing. Všechna práva vyhrazena.</p>
+  <a href="#uvod">Nahoru</a>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

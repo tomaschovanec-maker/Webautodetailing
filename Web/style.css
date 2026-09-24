@@ -1,0 +1,203 @@
+:root {
+  --ink: #12202b;
+  --steel: #1c3142;
+  --paper: #edf1f3;
+  --white: #fbfcfc;
+  --water: #4cc0e0;
+  --water-deep: #0a7898;
+  --muted: #8fa3b0;
+  --radius: 6px;
+  --font-head: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+}
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.1; margin: 0 0 .6em; letter-spacing: -.02em; }
+h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 800; }
+h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 700; }
+h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -.01em; }
+p { margin: 0 0 1em; max-width: 62ch; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--water); outline-offset: 3px; }
+
+/* Tlačítka */
+.btn {
+  display: inline-block;
+  padding: .85em 1.6em;
+  background: var(--water);
+  color: var(--ink);
+  font: 600 1rem var(--font-body);
+  text-decoration: none;
+  border: 2px solid var(--water);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.btn:hover { background: transparent; color: var(--water); }
+.btn-ghost { background: transparent; color: var(--white); border-color: rgba(255,255,255,.35); }
+.btn-ghost:hover { border-color: var(--water); }
+.btn-small { padding: .5em 1.1em; font-size: .95rem; }
+
+/* Hlavička */
+.site-header {
+  position: fixed; inset: 0 0 auto 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .9rem clamp(1.2rem, 4vw, 3rem);
+  background: rgba(18, 32, 43, .92);
+  backdrop-filter: blur(8px);
+  color: var(--white);
+}
+.logo { font: 800 1.35rem var(--font-head); text-decoration: none; letter-spacing: -.02em; }
+.logo span { font-weight: 500; color: var(--water); margin-left: .3em; }
+.nav { display: flex; align-items: center; gap: 1.8rem; }
+.nav a { text-decoration: none; font-weight: 500; }
+.nav a:not(.btn):hover { color: var(--water); }
+.nav .btn:hover { color: var(--water); }
+.nav-toggle {
+  display: none; background: none; color: inherit; border: 1px solid rgba(255,255,255,.35);
+  border-radius: var(--radius); padding: .4em .9em; font: 500 .95rem var(--font-body); cursor: pointer;
+}
+
+/* Úvod */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: clamp(2rem, 5vw, 5rem);
+  padding: 7rem clamp(1.2rem, 4vw, 3rem) 4rem;
+  background: var(--ink);
+  color: var(--white);
+}
+.hero-text { animation: rise .8s ease-out both; }
+.hero-text p { font-size: 1.2rem; color: #c6d3db; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.8rem; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+
+/* Porovnání před/po: lak jako hlavní vizuál */
+.compare { position: relative; margin: 0; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; background: #000; }
+.paint { position: absolute; inset: 0; }
+.paint-after {
+  background:
+    linear-gradient(115deg, transparent 30%, rgba(255,255,255,.85) 34%, rgba(255,255,255,0) 40%),
+    linear-gradient(115deg, transparent 58%, rgba(255,255,255,.35) 60%, transparent 66%),
+    linear-gradient(180deg, #16405c 0%, #0c2b42 48%, #061a2a 52%, #0d3a55 100%);
+}
+.paint-before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  background:
+    repeating-conic-gradient(from 0deg at 22% 30%, rgba(255,255,255,.07) 0 4deg, transparent 4deg 11deg),
+    repeating-conic-gradient(from 40deg at 70% 65%, rgba(255,255,255,.06) 0 3deg, transparent 3deg 9deg),
+    repeating-linear-gradient(72deg, rgba(255,255,255,.05) 0 1px, transparent 1px 9px),
+    linear-gradient(180deg, #2b4658 0%, #24404f 100%);
+}
+.tag {
+  position: absolute; top: 1rem; padding: .25em .8em; font-size: .85rem; font-weight: 600;
+  background: rgba(18,32,43,.8); color: var(--white); border-radius: 99px;
+}
+.tag-before { left: 1rem; }
+.tag-after { right: 1rem; }
+.handle {
+  position: absolute; top: 0; bottom: 0; left: var(--pos); width: 3px; margin-left: -1.5px; background: var(--white);
+}
+.handle::after {
+  content: "\2194"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 2.6rem; height: 2.6rem; display: grid; place-items: center;
+  background: var(--white); color: var(--ink); border-radius: 50%; font-size: 1.2rem;
+}
+.compare input[type="range"] {
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize;
+}
+.compare:focus-within .handle::after { outline: 3px solid var(--water); outline-offset: 2px; }
+.compare figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 1rem .8rem; font-size: .9rem;
+  background: linear-gradient(transparent, rgba(0,0,0,.7)); pointer-events: none;
+}
+
+/* Sekce */
+.section { padding: clamp(4rem, 8vw, 7rem) clamp(1.2rem, 4vw, 3rem); }
+.section.light { background: var(--paper); }
+.section.dark { background: var(--steel); color: var(--white); }
+.wrap { max-width: 1080px; margin: 0 auto; }
+.lead { font-size: 1.15rem; color: var(--muted); }
+
+/* Služby */
+.services { list-style: none; margin: 2.5rem 0 0; padding: 0; border-top: 2px solid var(--ink); }
+.services li {
+  display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 1rem 3rem; align-items: baseline;
+  padding: 1.8rem 0; border-bottom: 1px solid #c4d0d7;
+}
+.services h3, .services p { margin: 0; }
+.meta { font-weight: 600; color: var(--water-deep); white-space: nowrap; }
+
+/* Ceník */
+.sizes { display: flex; flex-wrap: wrap; gap: .6rem; margin: 2rem 0 1.5rem; }
+.sizes button {
+  padding: .7em 1.2em; font: 600 1rem var(--font-body); color: var(--white); background: transparent;
+  border: 2px solid rgba(255,255,255,.25); border-radius: var(--radius); cursor: pointer; text-align: left;
+}
+.sizes button small { display: block; font-weight: 400; color: var(--muted); }
+.sizes button[aria-selected="true"] { border-color: var(--water); background: rgba(76,192,224,.12); }
+.prices { width: 100%; border-collapse: collapse; }
+.prices th { text-align: left; font-weight: 500; color: var(--muted); padding: .6rem 0; border-bottom: 2px solid rgba(255,255,255,.3); }
+.prices th:last-child, .prices td:last-child { text-align: right; }
+.prices td { padding: 1.2rem 0; border-bottom: 1px solid rgba(255,255,255,.14); }
+.price { font: 700 1.4rem var(--font-head); color: var(--water); white-space: nowrap; }
+
+/* O nás */
+.about { display: grid; grid-template-columns: 1.4fr 1fr; gap: 4rem; align-items: start; }
+.facts { margin: 0; display: grid; gap: 1.6rem; padding-left: 2rem; border-left: 2px solid var(--water-deep); }
+.facts dt { font: 800 2.6rem/1 var(--font-head); color: var(--water-deep); }
+.facts dd { margin: .2rem 0 0; }
+
+/* Kontakt */
+.contact { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; }
+address { font-style: normal; margin-top: 2rem; }
+address p { margin-bottom: 1.2rem; }
+address strong { color: var(--water); font-weight: 600; }
+address a { text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.4); }
+form { display: grid; gap: 1.1rem; align-content: start; }
+label { display: grid; gap: .35rem; font-weight: 500; }
+input, select, textarea {
+  width: 100%; padding: .8em 1em; font: inherit; color: var(--ink);
+  background: var(--white); border: 2px solid transparent; border-radius: var(--radius);
+}
+input.invalid { border-color: #ff8a80; }
+form .btn { justify-self: start; }
+.form-msg { margin: 0; min-height: 1.6em; color: var(--water); font-weight: 500; }
+
+/* Patička */
+.footer {
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  padding: 1.6rem clamp(1.2rem, 4vw, 3rem); background: var(--ink); color: var(--muted); font-size: .95rem;
+}
+.footer p { margin: 0; }
+
+/* Mobil */
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .nav {
+    position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0;
+    padding: .5rem clamp(1.2rem, 4vw, 3rem) 1.2rem; background: var(--ink);
+    display: none;
+  }
+  .nav.open { display: flex; }
+  .nav a { padding: .8rem 0; }
+  .nav .btn { text-align: center; margin-top: .6rem; }
+  .hero, .about, .contact { grid-template-columns: 1fr; }
+  .hero { min-height: auto; }
+  .services li { grid-template-columns: 1fr; gap: .5rem; }
+  .facts { padding-left: 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-text { animation: none; }
+  .btn { transition: none; }
+}
