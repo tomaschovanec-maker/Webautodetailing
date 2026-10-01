@@ -1,54 +1,88 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Mobilní menu
-  const toggle = document.querySelector(".nav-toggle");
-  const nav = document.getElementById("nav");
-  const setMenu = (open) => {
-    nav.classList.toggle("open", open);
-    toggle.setAttribute("aria-expanded", String(open));
-  };
-  toggle.addEventListener("click", () => setMenu(!nav.classList.contains("open")));
-  nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  const navToggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector("#nav");
 
-  // Ceník podle velikosti vozu
-  const formatter = new Intl.NumberFormat("cs-CZ");
-  const rows = document.querySelectorAll(".prices tbody tr");
-  const tabs = document.querySelectorAll(".sizes button");
-
-  const showPrices = (size) => {
-    rows.forEach((row) => {
-      row.querySelector(".price").textContent = formatter.format(row.dataset[size]) + " Kč";
+  if (navToggle && nav) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute("aria-label", isOpen ? "Zavřít menu" : "Otevřít menu");
+      navToggle.textContent = isOpen ? "Zavřít" : "Menu";
     });
-    tabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.size === size)));
-  };
-  tabs.forEach((tab) => tab.addEventListener("click", () => showPrices(tab.dataset.size)));
-  showPrices("m");
 
-  // Porovnání lakuů před a po
-  const compare = document.getElementById("compare");
-  const range = compare.querySelector("input[type=range]");
-  range.addEventListener("input", () => compare.style.setProperty("--pos", range.value + "%"));
-
-  // Formulář (ukázka: pro ostrý provoz napojte na e-mail nebo backend)
-  const form = document.getElementById("form");
-  const msg = form.querySelector(".form-msg");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const required = form.querySelectorAll("[required]");
-    let valid = true;
-    required.forEach((field) => {
-      const empty = !field.value.trim();
-      field.classList.toggle("invalid", empty);
-      if (empty) valid = false;
+    nav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Otevřít menu");
+        navToggle.textContent = "Menu";
+      });
     });
-    if (!valid) {
-      msg.textContent = "Vyplňte prosím jméno a kontakt.";
-      return;
-    }
-    const name = form.jmeno.value.trim();
-    msg.textContent = "Děkujeme, " + name + ". Poptávku jsme přijali a ozveme se do jednoho pracovního dne.";
-    form.reset();
+  }
+
+  const compare = document.querySelector("#compare");
+  const range = compare?.querySelector('input[type="range"]');
+
+  if (compare && range) {
+    const updateCompare = () => {
+      compare.style.setProperty("--pos", `${range.value}%`);
+    };
+    range.addEventListener("input", updateCompare);
+    updateCompare();
+  }
+
+  const sizeButtons = document.querySelectorAll(".sizes button");
+  const priceRows = document.querySelectorAll(".prices tbody tr");
+
+  const updatePrices = (size) => {
+    priceRows.forEach(row => {
+      const price = row.querySelector(".price");
+      const value = row.dataset[size];
+      if (price && value) {
+        price.textContent = `${Number(value).toLocaleString("cs-CZ")} Kč`;
+      }
+    });
+  };
+
+  sizeButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      sizeButtons.forEach(btn => btn.setAttribute("aria-selected", "false"));
+      button.setAttribute("aria-selected", "true");
+      updatePrices(button.dataset.size);
+    });
   });
 
-  // Aktuální rok v patičce
-  document.getElementById("year").textContent = new Date().getFullYear();
+  updatePrices("m");
+
+  const year = document.querySelector("#year");
+  if (year) year.textContent = new Date().getFullYear();
+
+  const form = document.querySelector("#form");
+  const formMsg = document.querySelector(".form-msg");
+
+  if (form && formMsg) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const name = form.elements.jmeno;
+      const contact = form.elements.kontakt;
+      let valid = true;
+
+      [name, contact].forEach(field => {
+        field.classList.remove("invalid");
+        if (!field.value.trim()) {
+          field.classList.add("invalid");
+          valid = false;
+        }
+      });
+
+      if (!valid) {
+        formMsg.textContent = "Vyplňte prosím jméno a telefon nebo e-mail.";
+        return;
+      }
+
+      formMsg.textContent = "Děkujeme, poptávka je připravena k odeslání.";
+      form.reset();
+    });
+  }
 });
